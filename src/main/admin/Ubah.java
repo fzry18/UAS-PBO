@@ -164,21 +164,21 @@ public class Ubah extends javax.swing.JFrame {
 
     private void ubahMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ubahMouseClicked
         String vcr = vc.getText();
-        int hrg = Integer.parseInt(harga.getText());
-        
-        if(vcr.isEmpty()) {
+        String hrg = harga.getText();
+
+        if(vcr.isEmpty() || hrg.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Input tidak boleh kosong");
-        } else {           
-           int konfir = JOptionPane.showOptionDialog(this, "Yakin Ingin Mengubah Voucher?", "Bener Yeuh",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE, null,null,null);
-            if (konfir == JOptionPane.YES_OPTION) {
-              this.voucher.setNameVoucher(vcr);
-              this.voucher.setPrice(hrg);
-              TopUpRepository topUpRepository = new TopUpRepositoryImpl(DatabaseUtil);
-              topUpRepository.change(this.voucher); 
-              JOptionPane.showMessageDialog(null, "Data Berhasil Diubah");
-               new MenuAdmin().show();
-               this.dispose();
         } else {
+            int konfir = JOptionPane.showOptionDialog(this, "Yakin Ingin Mengubah Voucher?", "Bener Yeuh",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE, null,null,null);
+            if (konfir == JOptionPane.YES_OPTION) {
+                this.voucher.setNameVoucher(vcr);
+                this.voucher.setPrice(Integer.valueOf(hrg));
+                TopUpRepository topUpRepository = new TopUpRepositoryImpl(DatabaseUtil);
+                topUpRepository.change(this.voucher);
+                JOptionPane.showMessageDialog(null, "Data Berhasil Diubah");
+                new MenuAdmin().show();
+                this.dispose();
+            } else {
                 JOptionPane.showMessageDialog(null, "Gagal Mengubah Voucher");
             }
         }
